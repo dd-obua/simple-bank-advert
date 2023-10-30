@@ -4,12 +4,15 @@
 const select = (selector) => document.querySelector(selector);
 const selectAll = (selector) => document.querySelectorAll(selector);
 
-// Modal window
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 const modal = select('.modal');
 const overlay = select('.overlay');
 const btnCloseModal = select('.btn--close-modal');
 const btnsOpenModal = selectAll('.btn--show-modal');
+const navLinks = select('.nav__links');
 
+// Modal window
 const openModal = (event) => {
   event.preventDefault();
   modal.classList.remove('hidden');
@@ -29,9 +32,14 @@ document.addEventListener('keydown', (event) => {
   event.key === 'Escape' && !modal.classList.contains('hidden') && closeModal();
 });
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
 btnScrollTo.addEventListener('click', () =>
   section1.scrollIntoView({ behavior: 'smooth' })
 );
+
+navLinks.addEventListener('click', (event) => {
+  event.preventDefault();
+  if (event.target.classList.contains('nav__link')) {
+    const id = event.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
