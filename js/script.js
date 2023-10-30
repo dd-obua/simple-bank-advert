@@ -4,8 +4,8 @@
 const select = (selector) => document.querySelector(selector);
 const selectAll = (selector) => document.querySelectorAll(selector);
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+const btnScrollTo = select('.btn--scroll-to');
+const section1 = select('#section--1');
 const modal = select('.modal');
 const overlay = select('.overlay');
 const btnCloseModal = select('.btn--close-modal');
@@ -40,6 +40,6 @@ navLinks.addEventListener('click', (event) => {
   event.preventDefault();
   if (event.target.classList.contains('nav__link')) {
     const id = event.target.getAttribute('href');
-    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+    select(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
