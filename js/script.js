@@ -43,7 +43,7 @@ navLinks.addEventListener('click', (event) => {
   event.preventDefault();
   if (event.target.classList.contains('nav__link')) {
     const id = event.target.getAttribute('href');
-    select(id).scrollIntoView({ behavior: 'smooth' });
+    id.includes('section') && select(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
 
