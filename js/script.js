@@ -73,11 +73,11 @@ const handleEvent = (event) => {
     const siblings = link.closest('.nav__links').querySelectorAll('.nav__link');
     const logo = link.closest('.nav').querySelector('img');
 
-    const value = event.type === 'mouseover' ? 0.3 : 1;
+    const opcityValue = event.type === 'mouseover' ? 0.3 : 1;
     siblings.forEach((sibling) => {
-      if (sibling !== link) sibling.style.opacity = value;
+      if (sibling !== link) sibling.style.opacity = opcityValue;
     });
-    logo.style.opacity = value;
+    logo.style.opacity = opcityValue;
   }
 };
 
