@@ -14,6 +14,7 @@ const navLinks = select('.nav__links');
 const tabs = selectAll('.operations__tab');
 const tabsContainer = select('.operations__tab-container');
 const tabsContents = selectAll('.operations__content');
+const nav = select('.nav');
 
 // Modal window
 const openModal = (event) => {
@@ -64,3 +65,21 @@ tabsContainer.addEventListener('click', (event) => {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+// Menu fade animation
+const handleEvent = (event) => {
+  if (event.target.classList.contains('nav__link')) {
+    const link = event.target;
+    const siblings = link.closest('.nav__links').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    const value = event.type === 'mouseover' ? 0.3 : 1;
+    siblings.forEach((sibling) => {
+      if (sibling !== link) sibling.style.opacity = value;
+    });
+    logo.style.opacity = value;
+  }
+};
+
+nav.addEventListener('mouseover', handleEvent);
+nav.addEventListener('mouseout', handleEvent);
