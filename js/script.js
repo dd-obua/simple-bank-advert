@@ -122,7 +122,6 @@ sections.forEach((section) => {
 // Lazy loading images
 const loadImage = (entries, observer) => {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) return;
 
   const targetImg = entry.target;
