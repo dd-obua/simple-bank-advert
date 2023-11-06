@@ -18,6 +18,10 @@ const nav = select('.nav');
 const header = select('header');
 const sections = selectAll('section');
 const imageTargets = selectAll('img[data-src]');
+const slider = select('.slider');
+const slides = selectAll('.slide');
+const btnLeft = select('.slider__btn--left');
+const btnRight = select('.slider__btn--right');
 
 // Modal window
 const openModal = (event) => {
@@ -116,7 +120,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 sections.forEach((section) => {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 // Lazy loading images
@@ -141,3 +145,28 @@ const imageObserver = new IntersectionObserver(loadImage, {
 });
 
 imageTargets.forEach((img) => imageObserver.observe(img));
+
+// Slider
+let position = 0;
+
+const goToSlide = (position) => {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${(i - position) * 100}%)`)
+  );
+};
+
+const next = () => {
+  if (position === slides.length - 1) position = 0;
+  else position++;
+  goToSlide(position);
+};
+
+const previous = () => {
+  if (position === 0) position = slides.length - 1;
+  else position--;
+  goToSlide(position);
+};
+
+goToSlide(0); // Initial slide arrangement
+btnRight.addEventListener('click', next);
+btnLeft.addEventListener('click', previous);
