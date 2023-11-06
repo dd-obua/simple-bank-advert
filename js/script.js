@@ -170,3 +170,8 @@ const previous = () => {
 goToSlide(0); // Initial slide arrangement
 btnRight.addEventListener('click', next);
 btnLeft.addEventListener('click', previous);
+
+document.addEventListener('keydown', (event) => {
+  event.key === 'ArrowRight' && next();
+  event.key === 'ArrowLeft' && previous();
+});
