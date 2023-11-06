@@ -16,6 +16,7 @@ const tabsContainer = select('.operations__tab-container');
 const tabsContents = selectAll('.operations__content');
 const nav = select('.nav');
 const header = select('header');
+const sections = selectAll('section');
 
 // Modal window
 const openModal = (event) => {
@@ -96,3 +97,19 @@ const navHeight = nav.getBoundingClientRect().height;
 const options = { root: null, threshold: 0, rootMargin: `-${navHeight}px` };
 const headerObserver = new IntersectionObserver(stickNav, options);
 headerObserver.observe(header);
+
+// Reveal section
+const revealSection = (entries, observer) => {
+  const [entry] = entries;
+  entry.isIntersecting && entry.target.classList.remove('section--hidden');
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+sections.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
