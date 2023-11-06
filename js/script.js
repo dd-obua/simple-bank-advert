@@ -102,7 +102,10 @@ headerObserver.observe(header);
 const revealSection = (entries, observer) => {
   const [entry] = entries;
   if (!entry.isIntersecting) return;
-  entry.target.classList.remove('section--hidden');
+
+  const observedSection = entry.target;
+  observedSection.classList.remove('section--hidden');
+  sectionObserver.unobserve(observedSection);
 };
 
 const sectionObserver = new IntersectionObserver(revealSection, {
