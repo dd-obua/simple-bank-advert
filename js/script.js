@@ -17,6 +17,7 @@ const tabsContents = selectAll('.operations__content');
 const nav = select('.nav');
 const header = select('header');
 const sections = selectAll('section');
+const imageTargets = selectAll('img[data-src]');
 
 // Modal window
 const openModal = (event) => {
@@ -105,7 +106,7 @@ const revealSection = (entries, observer) => {
 
   const observedSection = entry.target;
   observedSection.classList.remove('section--hidden');
-  sectionObserver.unobserve(observedSection);
+  observer.unobserve(observedSection);
 };
 
 const sectionObserver = new IntersectionObserver(revealSection, {
