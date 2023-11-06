@@ -148,64 +148,70 @@ const imageObserver = new IntersectionObserver(loadImage, {
 imageTargets.forEach((img) => imageObserver.observe(img));
 
 // Slider
-const createDots = () => {
-  slides.forEach((_, i) => {
-    dotsContainer.insertAdjacentHTML(
-      'beforeend',
-      `<button class="dots__dot" data-slide="${i}"></button>`
+const createSlider = () => {
+  const createDots = () => {
+    slides.forEach((_, i) => {
+      dotsContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
+  };
+
+  const activeDot = (slide) => {
+    selectAll('.dots__dot').forEach((dot) => {
+      dot.classList.remove('dots__dot--active');
+    });
+    select(`.dots__dot[data-slide='${slide}'`).classList.add(
+      'dots__dot--active'
     );
+  };
+
+  let position = 0;
+
+  const goToSlide = (position) => {
+    slides.forEach(
+      (s, i) => (s.style.transform = `translateX(${(i - position) * 100}%)`)
+    );
+  };
+
+  const next = () => {
+    if (position === slides.length - 1) position = 0;
+    else position++;
+    goToSlide(position);
+    activeDot(position);
+  };
+
+  const previous = () => {
+    if (position === 0) position = slides.length - 1;
+    else position--;
+    goToSlide(position);
+    activeDot(position);
+  };
+
+  const init = () => {
+    createDots();
+    goToSlide(0); // Initial slide arrangement
+    activeDot(0); // Initial active dot
+  };
+
+  init();
+
+  btnRight.addEventListener('click', next);
+  btnLeft.addEventListener('click', previous);
+
+  document.addEventListener('keydown', (event) => {
+    event.key === 'ArrowRight' && next();
+    event.key === 'ArrowLeft' && previous();
+  });
+
+  dotsContainer.addEventListener('click', (event) => {
+    const clickedDot = event.target;
+    if (!clickedDot.classList.contains('dots__dot')) return;
+    const { slide } = clickedDot.dataset;
+    goToSlide(slide);
+    activeDot(slide);
   });
 };
 
-const activeDot = (slide) => {
-  selectAll('.dots__dot').forEach((dot) => {
-    dot.classList.remove('dots__dot--active');
-  });
-  select(`.dots__dot[data-slide='${slide}'`).classList.add('dots__dot--active');
-};
-
-let position = 0;
-
-const goToSlide = (position) => {
-  slides.forEach(
-    (s, i) => (s.style.transform = `translateX(${(i - position) * 100}%)`)
-  );
-};
-
-const next = () => {
-  if (position === slides.length - 1) position = 0;
-  else position++;
-  goToSlide(position);
-  activeDot(position);
-};
-
-const previous = () => {
-  if (position === 0) position = slides.length - 1;
-  else position--;
-  goToSlide(position);
-  activeDot(position);
-};
-
-const init = () => {
-  createDots();
-  goToSlide(0); // Initial slide arrangement
-  activeDot(0); // Initial active dot
-};
-
-init();
-
-btnRight.addEventListener('click', next);
-btnLeft.addEventListener('click', previous);
-
-document.addEventListener('keydown', (event) => {
-  event.key === 'ArrowRight' && next();
-  event.key === 'ArrowLeft' && previous();
-});
-
-dotsContainer.addEventListener('click', (event) => {
-  const clickedDot = event.target;
-  if (!clickedDot.classList.contains('dots__dot')) return;
-  const { slide } = clickedDot.dataset;
-  goToSlide(slide);
-  activeDot(slide);
-});
+createSlider();
