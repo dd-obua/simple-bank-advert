@@ -101,7 +101,8 @@ headerObserver.observe(header);
 // Reveal section
 const revealSection = (entries, observer) => {
   const [entry] = entries;
-  entry.isIntersecting && entry.target.classList.remove('section--hidden');
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
 };
 
 const sectionObserver = new IntersectionObserver(revealSection, {
