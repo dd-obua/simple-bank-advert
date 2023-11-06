@@ -186,9 +186,13 @@ const previous = () => {
   activeDot(position);
 };
 
-createDots();
-goToSlide(0); // Initial slide arrangement
-activeDot(0); // Initial active dot
+const init = () => {
+  createDots();
+  goToSlide(0); // Initial slide arrangement
+  activeDot(0); // Initial active dot
+};
+
+init();
 
 btnRight.addEventListener('click', next);
 btnLeft.addEventListener('click', previous);
