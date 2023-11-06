@@ -188,6 +188,7 @@ const previous = () => {
 
 createDots();
 goToSlide(0); // Initial slide arrangement
+activeDot(0); // Initial active dot
 
 btnRight.addEventListener('click', next);
 btnLeft.addEventListener('click', previous);
